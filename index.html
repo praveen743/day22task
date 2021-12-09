@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            background-color: gray;
+            width: 400px;
+            height: 400px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            display: inline-flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+        }
+
+        img {
+
+            width: 400px;
+            height: 200px;
+        }
+
+        p {
+             padding: auto;
+            text-align: center;
+            width: 100%;
+            font-size: 20px;
+            display: block;
+            
+            font-style: bold;
+        }
+        button{
+            background-color: black;
+            color: white;
+            font-size: large;
+            font-family: 'Times New Roman', Times, serif;
+            margin: auto;
+            width: 100%;
+            height: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+
+        fetch('https://restcountries.com/v3.1/all')
+            .then(function (data) {
+                return data.json();
+            })
+            .then(function (dataobj) {
+                console.log(dataobj);
+                for (var i = 0; i < dataobj.length; i++) {
+                    var div = document.createElement("div");
+                    var img = document.createElement("img");
+                    img.src = dataobj[i].flags.png;
+                    div.appendChild(img);
+
+                    
+
+                    var para = document.createElement("p");
+                    para.innerText = dataobj[i].name.common;
+                    div.appendChild(para);
+                    var para1 = document.createElement("p");
+                    para1.innerText = dataobj[i].altSpellings[0];
+                    div.appendChild(para1);
+                    var newElem = document.createElement("BR");
+                    div.insertBefore(newElem, para1);
+
+                    var button=document.createElement("button");
+                    button.innerText="Get weather report";
+                    div.appendChild(button);
+
+
+                     
+                    document.body.appendChild(div);
+
+                }
+
+            })
+            .catch(function (err) {
+                console.log(err)
+            })
+    </script>
+</body>
+
+</html>
